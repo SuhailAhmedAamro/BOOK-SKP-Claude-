@@ -1,0 +1,126 @@
+/* Hero Section - The "Lamba" Lambo Look */
+.heroBanner {
+  min-height: 85vh; /* This makes it tall */
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0;
+  background-color: #0f172a;
+  background-image: radial-gradient(#1e293b 1px, transparent 1px);
+  background-size: 30px 30px; /* Tech grid pattern */
+}
+
+.heroTitle {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  color: #94a3b8;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.highlight {
+  color: #3b82f6;
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Right Side Badges */
+.badgeColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 2rem;
+}
+
+.techBadge {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  padding: 1.25rem;
+  border-radius: 16px;
+  font-weight: 600;
+  color: #e2e8f0;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.techBadge:hover {
+  transform: translateX(10px);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.badgeIcon {
+  color: #3b82f6;
+  margin-right: 12px;
+  font-weight: bold;
+}
+
+/* Roadmap Section */
+.infoCard {
+  border-radius: 20px;
+  overflow: hidden;
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: var(--ifm-card-background-color);
+}
+
+.infoCard:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.3);
+}
+
+.infoCard img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+/* Hardware Section */
+.hardwareSection {
+  background-color: #f1f5f9;
+}
+
+[data-theme='dark'] .hardwareSection {
+  background-color: #020617;
+}
+
+.sideImg {
+  border-radius: 30px;
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
+  border: 4px solid rgba(59, 130, 246, 0.1);
+}
+
+.specList {
+  list-style: none;
+  padding: 0;
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.specList li {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(59, 130, 246, 0.05);
+  border-left: 4px solid #3b82f6;
+  border-radius: 4px;
+}
+
+/* Responsive Fix */
+@media (max-width: 768px) {
+  .heroBanner {
+    min-height: auto;
+    padding: 6rem 0;
+  }
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  .badgeColumn {
+    padding-left: 0;
+    margin-top: 3rem;   
+  }
+}

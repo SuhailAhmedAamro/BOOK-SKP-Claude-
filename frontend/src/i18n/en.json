@@ -1,0 +1,24 @@
+{
+  "personalize": {
+    "button": "Personalize",
+    "beginner": "Beginner Path",
+    "advanced": "Advanced Path",
+    "selectPath": "Select Your Learning Path"
+  },
+  "translate": {
+    "button": "Translate to Urdu",
+    "switchToUrdu": "اردو میں پڑھیں",
+    "switchToEnglish": "Read in English"
+  },
+  "assessment": {
+    "title": "Self-Assessment Quiz",
+    "submit": "Submit Quiz",
+    "score": "Your Score",
+    "retry": "Retry Quiz"
+  },
+  "navigation": {
+    "home": "Home",
+    "curriculum": "Curriculum",
+    "dashboard": "Dashboard"
+  }
+}

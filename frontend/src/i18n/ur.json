@@ -1,0 +1,24 @@
+{
+  "personalize": {
+    "button": "ذاتی بنائیں",
+    "beginner": "ابتدائی راستہ",
+    "advanced": "اعلیٰ راستہ",
+    "selectPath": "اپنا سیکھنے کا راستہ منتخب کریں"
+  },
+  "translate": {
+    "button": "اردو میں ترجمہ کریں",
+    "switchToUrdu": "اردو میں پڑھیں",
+    "switchToEnglish": "انگریزی میں پڑھیں"
+  },
+  "assessment": {
+    "title": "خود تشخیص کوئز",
+    "submit": "کوئز جمع کریں",
+    "score": "آپ کا سکور",
+    "retry": "کوئز دوبارہ کریں"
+  },
+  "navigation": {
+    "home": "ہوم",
+    "curriculum": "نصاب",
+    "dashboard": "ڈیش بورڈ"
+  }
+}

@@ -1,0 +1,437 @@
+openapi: 3.1.0
+info:
+  title: Physical AI & Humanoid Robotics Portal API
+  description: FastAPI backend for RAG chatbot, authentication, and progress tracking
+  version: 1.0.0
+  contact:
+    name: Panaversity
+    email: support@panaversity.pk
+
+servers:
+  - url: https://api-robotics-portal.railway.app
+    description: Production server (Railway)
+  - url: http://localhost:8000
+    description: Local development server
+
+tags:
+  - name: auth
+    description: User authentication and session management
+  - name: chat
+    description: RAG chatbot endpoints
+  - name: progress
+    description: User progress tracking
+  - name: analytics
+    description: Event logging for PostHog
+
+paths:
+  /api/auth/signup:
+    post:
+      summary: Create new user account
+      tags: [auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, learning_path]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: student@panaversity.pk
+                password:
+                  type: string
+                  minLength: 8
+                  example: SecurePass123!
+                learning_path:
+                  type: string
+                  enum: [beginner, advanced]
+                  example: beginner
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Validation error (email already exists, weak password)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/auth/login:
+    post:
+      summary: Login with email/password
+      tags: [auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/UserResponse'
+                  session_token:
+                    type: string
+                    description: JWT token for authenticated requests
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/auth/oauth/{provider}:
+    get:
+      summary: OAuth login (Google, GitHub)
+      tags: [auth]
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [google, github]
+      responses:
+        '302':
+          description: Redirect to OAuth provider
+        '400':
+          description: Unsupported provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/auth/me:
+    get:
+      summary: Get current user profile
+      tags: [auth]
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: Unauthorized (invalid/expired token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/chat:
+    post:
+      summary: Send message to RAG chatbot
+      tags: [chat]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [question]
+              properties:
+                question:
+                  type: string
+                  description: User's question
+                  example: What is the DH parameter convention?
+                selected_text:
+                  type: string
+                  nullable: true
+                  description: Text highlighted by user (null if no selection)
+                  example: "The Denavit-Hartenberg parameters describe..."
+                week_context:
+                  type: integer
+                  nullable: true
+                  minimum: 1
+                  maximum: 13
+                  description: Week number user is viewing
+                  example: 3
+      responses:
+        '200':
+          description: Chatbot response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    description: AI-generated answer
+                  source_citations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        week:
+                          type: integer
+                        section:
+                          type: string
+                    example:
+                      - week: 3
+                        section: Forward Kinematics
+                      - week: 3
+                        section: DH Parameters
+                  response_time_ms:
+                    type: integer
+                    description: Response latency in milliseconds
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/chat/history:
+    get:
+      summary: Get chat history for current user
+      tags: [chat]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+      responses:
+        '200':
+          description: Chat history
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ChatMessage'
+                  total:
+                    type: integer
+                    description: Total number of messages
+
+  /api/progress:
+    get:
+      summary: Get progress for all weeks
+      tags: [progress]
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User progress
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  weeks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WeekProgress'
+                  completion_percentage:
+                    type: integer
+                    description: Percentage of completed weeks (0-100)
+                    example: 38
+
+  /api/progress/{week_number}:
+    put:
+      summary: Update progress for specific week
+      tags: [progress]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: week_number
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 13
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                is_completed:
+                  type: boolean
+                  description: Mark week as complete/incomplete
+                quiz_score:
+                  type: integer
+                  nullable: true
+                  minimum: 0
+                  maximum: 100
+                  description: Self-assessment score (null if not taken)
+      responses:
+        '200':
+          description: Progress updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeekProgress'
+        '400':
+          description: Invalid week number or quiz score
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/analytics/event:
+    post:
+      summary: Log analytics event to PostHog
+      tags: [analytics]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [event_name]
+              properties:
+                event_name:
+                  type: string
+                  example: personalize_clicked
+                properties:
+                  type: object
+                  additionalProperties: true
+                  description: Event-specific properties
+                  example:
+                    selected_path: advanced
+                    week: 5
+      responses:
+        '202':
+          description: Event logged (async processing)
+        '400':
+          description: Invalid event name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Better-Auth JWT token
+
+  schemas:
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        learning_path:
+          type: string
+          enum: [beginner, advanced]
+        created_at:
+          type: string
+          format: date-time
+      example:
+        id: "550e8400-e29b-41d4-a716-446655440000"
+        email: "student@panaversity.pk"
+        learning_path: "beginner"
+        created_at: "2025-12-18T10:30:00Z"
+
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        week_context:
+          type: integer
+          nullable: true
+        selected_text:
+          type: string
+          nullable: true
+        user_question:
+          type: string
+        ai_response:
+          type: string
+        source_citations:
+          type: array
+          items:
+            type: object
+            properties:
+              week:
+                type: integer
+              section:
+                type: string
+        response_time_ms:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+
+    WeekProgress:
+      type: object
+      properties:
+        week_number:
+          type: integer
+        is_completed:
+          type: boolean
+        quiz_score:
+          type: integer
+          nullable: true
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+      example:
+        week_number: 3
+        is_completed: true
+        quiz_score: 85
+        completed_at: "2025-12-18T15:45:00Z"
+
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code (e.g., VALIDATION_ERROR, UNAUTHORIZED)
+      example:
+        detail: "Email already registered"
+        code: "VALIDATION_ERROR"
