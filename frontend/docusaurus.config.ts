@@ -17,15 +17,16 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://robotics.panaversity.com',
+  url: 'http://localhost:3000',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+ baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'panaversity', // Usually your GitHub org/user name.
-  projectName: 'robotics-portal', // Usually your repo name.
+   organizationName: 'Suhail Ahmed Aamro', // Usually your GitHub org/user name.
+  projectName: 'BOOK-HACKTHOON', // Usually your repo name.
+
 
   onBrokenLinks: 'throw',
 
@@ -91,74 +92,96 @@ const config: Config = {
     colorMode: {
       respectPrefersColorScheme: true,
     },
-    navbar: {
-      title: 'Robotics Portal',
+   navbar: {
+      title: '',
+      hideOnScroll: true,
       logo: {
         alt: 'Panaversity Logo',
         src: 'img/logo.svg',
+        width: 32,
+        height: 32,
       },
       items: [
+        // --- Left Side (Navigation) ---
         {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Curriculum',
+          label: '📖 The Book',
         },
+       
+
+        // --- Right Side (Tools & Auth) ---
         {
           type: 'localeDropdown',
           position: 'right',
+          className: 'nav-link-language',
         },
         {
-          href: 'https://github.com/panaversity/robotics-portal',
-          label: 'GitHub',
+          href: 'https://localhost:3000',
           position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
+          html: '<i class="fab fa-github" style="font-size: 1.5rem;"></i>', // FontAwesome icon support
+        },
+        // Professional Action Button for Auth
+        {
+          type: 'html',
+          position: 'right',
+          value: `
+            <div class="navbar-auth-wrapper">
+              <button id="login-btn" class="button button--outline button--primary button--sm" style="border-radius: 20px; padding: 5px 15px; font-weight: bold;">
+                Sign In
+              </button>
+            </div>
+          `,
         },
       ],
     },
     footer: {
       style: 'dark',
       links: [
+        // {
+        //   title: 'Docs',
+        //   items: [
+        //     // {
+        //     //   label: 'Tutorial',
+        //     //   to: '/docs/intro',
+        //     // },
+        //   ],
+        // },
         {
-          title: 'Docs',
+          // title: 'Community',
           items: [
-            {
-              label: 'Tutorial',
-              to: '/docs/intro',
-            },
+            // {
+            //   label: 'Stack Overflow',
+            //   href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+            // },
+            // {
+            //   label: 'Discord',
+            //   href: 'https://discordapp.com/invite/docusaurus',
+            // },
+            // {
+            //   label: 'X',
+            //   href: 'https://x.com/docusaurus',
+            // },
           ],
         },
         {
-          title: 'Community',
+          // title: 'More',
           items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
+            // {
+            //   label: 'Blog',
+            //   to: '/blog',
+            // },
+            // // {
+            //   label: 'GitHub',
+            //   href: 'https://github.com/facebook/docusaurus',
+            // },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Panaversity. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Panaversity. Developed by Suhail Ahmed Aamro. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
