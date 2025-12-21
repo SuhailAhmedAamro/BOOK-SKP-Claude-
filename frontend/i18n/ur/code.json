@@ -1,0 +1,14 @@
+{
+  "theme.common.skipToMainContent": "مرکزی مواد پر جائیں",
+  "theme.tags.tagsListLabel": "ٹیگز:",
+  "theme.blog.archive.title": "محفوظ شدہ",
+  "theme.blog.paginator.newerEntries": "نئے مضامین",
+  "theme.blog.paginator.olderEntries": "پرانے مضامین",
+  "theme.blog.post.readMore": "مزید پڑھیں",
+  "theme.blog.post.readingTime": "{readingTime} منٹ پڑھنے کا وقت",
+  "theme.docs.sidebar.collapseButtonTitle": "سائیڈ بار بند کریں",
+  "theme.docs.sidebar.expandButtonTitle": "سائیڈ بار کھولیں",
+  "theme.docs.paginator.previous": "پچھلا",
+  "theme.docs.paginator.next": "اگلا",
+  "theme.TOCCollapsible.toggleButtonLabel": "اس صفحہ پر"
+}

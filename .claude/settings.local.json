@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm start)",
+      "Bash(timeout /t 20 /nobreak)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill /F /PID 3520)",
+      "Bash(taskkill //F //PID 3520)",
+      "Bash(ping:*)",
+      "Bash(dir:*)"
+    ]
+  }
+}

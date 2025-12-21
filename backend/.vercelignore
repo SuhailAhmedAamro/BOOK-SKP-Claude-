@@ -1,0 +1,9 @@
+# Vercel ignore file
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.env.local
+tests/
+*.md
+scripts/ingest_chapters.py

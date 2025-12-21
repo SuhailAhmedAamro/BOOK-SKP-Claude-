@@ -1,0 +1,25 @@
+# Core FastAPI - using versions with pre-built wheels for Windows
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+python-multipart==0.0.20
+
+# Pydantic - using stable versions with guaranteed binary wheels
+pydantic==2.8.2
+pydantic-settings==2.4.0
+
+# Database
+# Using psycopg2-binary without strict version for Windows compatibility
+psycopg2-binary>=2.9.9
+asyncpg==0.30.0
+
+# Vector & ML
+google-generativeai>=0.3.0
+qdrant-client==1.12.1
+
+# Auth (Note: better-auth is TypeScript library, we'll use custom implementation)
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-dotenv==1.0.1
+
+# Utilities
+httpx==0.28.1

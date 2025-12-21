@@ -1,12 +1,8 @@
-z/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
+@import "tailwindcss";
 
-/* Tailwind base styles */
+/* Import Noto Sans Arabic font for Urdu support */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
-/* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
@@ -17,9 +13,17 @@ z/**
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Physical AI High-Tech Theme Variables */
+  --ai-blue: #3b82f6;
+  --ai-blue-dark: #2563eb;
+  --ai-blue-glow: rgba(59, 130, 246, 0.5);
+  --ai-cyan: #06b6d4;
+  --ai-purple: #8b5cf6;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
@@ -29,4 +33,413 @@ z/**
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  --glass-bg: rgba(30, 41, 59, 0.4);
+  --glass-border: rgba(59, 130, 246, 0.3);
+}
+
+/* ========================================
+   GLASSMORPHISM & HIGH-TECH EFFECTS
+   ======================================== */
+
+/* Glassmorphism Utility Classes */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='dark'] .glass-strong {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+/* Glow Effects */
+.glow-on-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-on-hover:hover {
+  box-shadow: 0 0 20px var(--ai-blue-glow),
+              0 0 40px var(--ai-blue-glow),
+              0 8px 32px rgba(59, 130, 246, 0.3);
+  border-color: var(--ai-blue);
+}
+
+/* Shimmer Loading Effect */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    #f0f0f0 0%,
+    #e0e0e0 20%,
+    #f0f0f0 40%,
+    #f0f0f0 100%
+  );
+  background-size: 1000px 100%;
+}
+
+[data-theme='dark'] .shimmer {
+  background: linear-gradient(
+    to right,
+    #1e293b 0%,
+    #334155 20%,
+    #1e293b 40%,
+    #1e293b 100%
+  );
+  background-size: 1000px 100%;
+}
+
+.skeleton {
+  border-radius: 0.5rem;
+  height: 100%;
+  width: 100%;
+}
+
+/* Button Ripple Effect */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.btn-ripple:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.btn-ripple:active:after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+/* Smooth Scale Hover Effect */
+.scale-hover {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scale-hover:hover {
+  transform: scale(1.05);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+/* Gradient Border Animation */
+@keyframes gradient-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient-border {
+  position: relative;
+  background: linear-gradient(90deg, var(--ai-blue), var(--ai-cyan), var(--ai-purple), var(--ai-blue));
+  background-size: 300% 300%;
+  animation: gradient-border 3s ease infinite;
+  padding: 2px;
+  border-radius: 1rem;
+}
+
+.animated-gradient-border > * {
+  background: var(--ifm-background-color);
+  border-radius: calc(1rem - 2px);
+}
+
+/* High-Tech Pulsing Effect */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--ai-blue-glow);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--ai-blue-glow), 0 0 30px var(--ai-blue-glow);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ========================================
+   DOCS & MARKDOWN IMAGE SPACING
+   ======================================== */
+
+/* Ensure all images in markdown/docs have consistent spacing */
+article img,
+.markdown img {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme='dark'] article img,
+[data-theme='dark'] .markdown img {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover effect for images */
+article img:hover,
+.markdown img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
+}
+
+/* First image after a heading gets extra top margin */
+article h1 + p > img,
+article h2 + p > img,
+article h3 + p > img,
+article h1 + img,
+article h2 + img,
+article h3 + img {
+  margin-top: 2.5rem;
+}
+
+/* Images in tables or special containers */
+article table img,
+.markdown table img {
+  margin: 1rem auto;
+  border-radius: 8px;
+}
+
+/* Responsive image sizing */
+@media (max-width: 768px) {
+  article img,
+  .markdown img {
+    margin: 1.5rem auto;
+    border-radius: 8px;
+  }
+}
+
+/* Image captions (if using figure/figcaption) */
+article figure {
+  margin: 2.5rem 0;
+  text-align: center;
+}
+
+/* ========================================
+   URDU RTL CONTENT STYLING
+   ======================================== */
+
+/* Apply RTL ONLY to book content, not the entire layout */
+.urdu-content {
+  direction: rtl !important;
+  text-align: right !important;
+  font-family: 'Noto Sans Arabic', 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', Arial, sans-serif !important;
+}
+
+/* Keep code blocks and tables LTR even in Urdu content */
+.urdu-content pre,
+.urdu-content code,
+.urdu-content table,
+.urdu-content .language-* {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* Keep images centered in RTL content */
+.urdu-content img {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Sidebar items in RTL */
+.urdu-content .menu__list-item,
+.urdu-content .menu__link {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+/* Ensure lists work properly in RTL */
+.urdu-content ul,
+.urdu-content ol {
+  padding-right: 2rem !important;
+  padding-left: 0 !important;
+}
+
+/* ========================================
+   CHATBOT POSITIONING & RESPONSIVENESS
+   ======================================== */
+
+/* Ensure chatbot doesn't overlap content on smaller screens */
+@media (max-width: 1280px) {
+  /* Add padding to article content when chatbot might overlap */
+  article.markdown {
+    padding-bottom: 2rem;
+  }
+}
+
+/* On mobile, make chatbot full-screen overlay */
+@media (max-width: 768px) {
+  /* Chatbot takes full screen on mobile */
+  .fixed.bottom-6.right-6.w-96 {
+    width: 100% !important;
+    height: 100% !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* Ensure chatbot button doesn't interfere with footer or content */
+.fixed.bottom-6.right-6.w-14 {
+  z-index: 999;
+}
+
+/* Add margin to book content to avoid chatbot overlap */
+[data-theme] article,
+[data-theme] .markdown {
+  margin-bottom: 3rem;
+}
+
+/* ========================================
+   BOOK SIDEBAR STYLING
+   ======================================== */
+
+/* Ensure sidebar stays LTR regardless of content language */
+.theme-doc-sidebar-container,
+.menu,
+.menu__list {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* Sidebar links should have proper spacing */
+.menu__link {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Active sidebar link highlighting */
+.menu__link--active {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--ai-blue);
+  font-weight: 600;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  border-left: 3px solid var(--ai-blue);
+}
+
+/* Sidebar hover effects */
+.menu__link:hover:not(.menu__link--active) {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+/* Sidebar scrollbar styling */
+.theme-doc-sidebar-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.3) transparent;
+}
+
+.theme-doc-sidebar-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.theme-doc-sidebar-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.theme-doc-sidebar-container::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+}
+
+.theme-doc-sidebar-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+article figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+[data-theme='dark'] article figcaption {
+  color: #9ca3af;
 }

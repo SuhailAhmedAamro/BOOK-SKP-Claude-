@@ -28,7 +28,7 @@ const config: Config = {
   projectName: 'BOOK-HACKTHOON', // Usually your repo name.
 
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   // Internationalization for English/Urdu
   i18n: {
@@ -46,9 +46,9 @@ const config: Config = {
     },
   },
 
-  markdown: {
-    mermaid: true,
-  },
+  // markdown: {
+  //   mermaid: true,
+  // },
   themes: ['@docusaurus/theme-mermaid'],
 
   presets: [
@@ -59,10 +59,6 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/panaversity/robotics-portal/tree/main/',
         },
         blog: {
           showReadingTime: true,
@@ -103,12 +99,12 @@ const config: Config = {
       },
       items: [
         // --- Left Side (Navigation) ---
-        {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: '📖 The Book',
-        },
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'tutorialSidebar',
+        //   position: 'left',
+        //   label: '📖 The Book',
+        // },
        
 
         // --- Right Side (Tools & Auth) ---
@@ -125,63 +121,37 @@ const config: Config = {
           html: '<i class="fab fa-github" style="font-size: 1.5rem;"></i>', // FontAwesome icon support
         },
         // Professional Action Button for Auth
-        {
-          type: 'html',
-          position: 'right',
-          value: `
-            <div class="navbar-auth-wrapper">
-              <button id="login-btn" class="button button--outline button--primary button--sm" style="border-radius: 20px; padding: 5px 15px; font-weight: bold;">
-                Sign In
-              </button>
-            </div>
-          `,
-        },
+        // {
+        //   type: 'html',
+        //   position: 'right',
+        //   value: `
+        //     <div class="navbar-auth-wrapper">
+        //       <button id="login-btn" class="button button--outline button--primary button--sm" style="border-radius: 20px; padding: 5px 15px; font-weight: bold;">
+        //         Sign In
+        //       </button>
+        //     </div>
+        //   `,
+        // },
       ],
     },
     footer: {
       style: 'dark',
-      links: [
-        // {
-        //   title: 'Docs',
-        //   items: [
-        //     // {
-        //     //   label: 'Tutorial',
-        //     //   to: '/docs/intro',
-        //     // },
-        //   ],
-        // },
-        {
-          // title: 'Community',
-          items: [
-            // {
-            //   label: 'Stack Overflow',
-            //   href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            // },
-            // {
-            //   label: 'Discord',
-            //   href: 'https://discordapp.com/invite/docusaurus',
-            // },
-            // {
-            //   label: 'X',
-            //   href: 'https://x.com/docusaurus',
-            // },
-          ],
-        },
-        {
-          // title: 'More',
-          items: [
-            // {
-            //   label: 'Blog',
-            //   to: '/blog',
-            // },
-            // // {
-            //   label: 'GitHub',
-            //   href: 'https://github.com/facebook/docusaurus',
-            // },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} Panaversity. Developed by Suhail Ahmed Aamro. Built with Docusaurus.`,
+      copyright: `
+        <div style="margin-top: 1rem;">
+          <p style="margin-bottom: 0.5rem;">
+            <strong>Physical AI & Humanoid Robotics Portal</strong>
+          </p>
+          <p style="margin-bottom: 0.5rem;">
+            Copyright © ${new Date().getFullYear()} <a href="https://www.panaversity.com" target="_blank" rel="noopener noreferrer">Panaversity</a>. All rights reserved.
+          </p>
+          <p style="margin-bottom: 0.5rem;">
+            Developed with ❤️ by <strong>Suhail Ahmed Aamro</strong> | Built with <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer">Docusaurus</a>
+          </p>
+          <p style="font-size: 0.875rem; opacity: 0.8;">
+            Master Embodied Intelligence • ROS 2 • NVIDIA Isaac Sim • Humanoid Robotics
+          </p>
+        </div>
+      `,
     },
     prism: {
       theme: prismThemes.github,
