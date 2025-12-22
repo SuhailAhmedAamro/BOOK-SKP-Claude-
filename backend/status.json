@@ -1,0 +1,336 @@
+{
+  "id": "1d8f78b6-d4c7-4a1e-b850-a808027329e1",
+  "name": "spirited-beauty",
+  "deletedAt": null,
+  "workspace": {
+    "name": "Suhail Ahmed Aamro's Projects"
+  },
+  "environments": {
+    "edges": [
+      {
+        "node": {
+          "id": "41abce21-933e-4b62-88a0-d216aa31e8ec",
+          "name": "production",
+          "canAccess": true,
+          "deletedAt": null,
+          "serviceInstances": {
+            "edges": [
+              {
+                "node": {
+                  "id": "57143699-b351-48fd-9a1f-975a87becb19",
+                  "serviceId": "75a42cab-22e6-41b8-a768-81fc057c6165",
+                  "serviceName": "renewed-victory",
+                  "environmentId": "41abce21-933e-4b62-88a0-d216aa31e8ec",
+                  "latestDeployment": {
+                    "canRedeploy": true,
+                    "id": "f61b547f-caae-44f3-9969-922bd0582247",
+                    "meta": {
+                      "branch": "main",
+                      "buildOnly": false,
+                      "commitAuthor": "SuhailAhmedAamro",
+                      "commitHash": "66d1c46a1cc229bbf640518dd55c167a7be3566b",
+                      "commitMessage": "Remove conflicting Railway configuration files\n\n- Remove backend/railway.toml (using root railway.json instead)\n- Remove backend/Procfile (config in railway.json)\n- Remove backend/runtime.txt (Nixpacks auto-detects Python version)\n- Root railway.json has correct cd backend && commands\n\n🤖 Generated with Claude Code\nhttps://claude.com/claude-code\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+                      "configFile": "railway.json",
+                      "fileServiceManifest": {
+                        "build": {
+                          "buildCommand": "cd backend && pip install -r requirements.txt",
+                          "builder": "NIXPACKS"
+                        },
+                        "deploy": {
+                          "healthcheckPath": "/api/health",
+                          "healthcheckTimeout": 100,
+                          "restartPolicyMaxRetries": 10,
+                          "restartPolicyType": "ON_FAILURE",
+                          "startCommand": "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+                        }
+                      },
+                      "logsV2": true,
+                      "nixpacksProviders": [],
+                      "propertyFileMapping": {
+                        "build.buildCommand": "$.build.buildCommand",
+                        "build.builder": "$.build.builder",
+                        "deploy.healthcheckPath": "$.deploy.healthcheckPath",
+                        "deploy.healthcheckTimeout": "$.deploy.healthcheckTimeout",
+                        "deploy.restartPolicyMaxRetries": "$.deploy.restartPolicyMaxRetries",
+                        "deploy.restartPolicyType": "$.deploy.restartPolicyType",
+                        "deploy.startCommand": "$.deploy.startCommand"
+                      },
+                      "reason": "deploy",
+                      "repo": "SuhailAhmedAamro/BOOK-SKP-Claude-",
+                      "rootDirectory": null,
+                      "runtime": "V2",
+                      "serviceManifest": {
+                        "build": {
+                          "buildCommand": "cd backend && pip install -r requirements.txt",
+                          "buildEnvironment": null,
+                          "builder": "NIXPACKS",
+                          "dockerfilePath": null,
+                          "nixpacksConfigPath": null,
+                          "nixpacksPlan": null,
+                          "watchPatterns": [
+                            "/backend/**"
+                          ]
+                        },
+                        "deploy": {
+                          "cronSchedule": null,
+                          "drainingSeconds": null,
+                          "healthcheckPath": "/api/health",
+                          "healthcheckTimeout": 100,
+                          "limitOverride": null,
+                          "multiRegionConfig": {
+                            "us-west2": {
+                              "numReplicas": 1
+                            }
+                          },
+                          "numReplicas": 1,
+                          "overlapSeconds": null,
+                          "preDeployCommand": null,
+                          "region": null,
+                          "registryCredentials": null,
+                          "requiredMountPath": null,
+                          "restartPolicyMaxRetries": 10,
+                          "restartPolicyType": "ON_FAILURE",
+                          "runtime": "V2",
+                          "sleepApplication": false,
+                          "startCommand": "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT",
+                          "useLegacyStacker": false
+                        }
+                      },
+                      "volumeMounts": []
+                    },
+                    "status": "FAILED",
+                    "createdAt": "2025-12-22T04:04:24.737Z",
+                    "deploymentStopped": true
+                  },
+                  "source": {
+                    "repo": "SuhailAhmedAamro/BOOK-SKP-Claude-",
+                    "image": null
+                  },
+                  "domains": {
+                    "serviceDomains": [
+                      {
+                        "id": "ed137df4-b526-4b16-a6ff-e0b7879c6a13",
+                        "domain": "renewed-victory-production.up.railway.app",
+                        "targetPort": null
+                      }
+                    ],
+                    "customDomains": []
+                  },
+                  "cronSchedule": null,
+                  "nextCronRunAt": null,
+                  "startCommand": null
+                }
+              },
+              {
+                "node": {
+                  "id": "89dcc5c2-96de-42d6-8e9f-a46f931a56f9",
+                  "serviceId": "1cf5f190-28e0-454c-b6da-4fd095204674",
+                  "serviceName": "BOOK-SKP-Claude-",
+                  "environmentId": "41abce21-933e-4b62-88a0-d216aa31e8ec",
+                  "latestDeployment": {
+                    "canRedeploy": true,
+                    "id": "b4381673-2f3a-416a-b5ac-0f4ee28c7f55",
+                    "meta": {
+                      "buildOnly": false,
+                      "configFile": null,
+                      "fileServiceManifest": {},
+                      "logsV2": true,
+                      "nixpacksProviders": [
+                        "python"
+                      ],
+                      "propertyFileMapping": {},
+                      "reason": "deploy",
+                      "rootDirectory": null,
+                      "runtime": "V2",
+                      "serviceManifest": {
+                        "build": {
+                          "buildCommand": null,
+                          "buildEnvironment": null,
+                          "builder": "RAILPACK",
+                          "dockerfilePath": null,
+                          "nixpacksConfigPath": null,
+                          "nixpacksPlan": null,
+                          "watchPatterns": []
+                        },
+                        "deploy": {
+                          "cronSchedule": null,
+                          "drainingSeconds": null,
+                          "healthcheckPath": null,
+                          "healthcheckTimeout": null,
+                          "limitOverride": null,
+                          "multiRegionConfig": {
+                            "us-west2": {
+                              "numReplicas": 1
+                            }
+                          },
+                          "numReplicas": 1,
+                          "overlapSeconds": null,
+                          "preDeployCommand": null,
+                          "region": null,
+                          "registryCredentials": null,
+                          "requiredMountPath": null,
+                          "restartPolicyMaxRetries": 10,
+                          "restartPolicyType": "ON_FAILURE",
+                          "runtime": "V2",
+                          "sleepApplication": false,
+                          "startCommand": null,
+                          "useLegacyStacker": false
+                        }
+                      },
+                      "volumeMounts": []
+                    },
+                    "status": "FAILED",
+                    "createdAt": "2025-12-22T04:10:36.273Z",
+                    "deploymentStopped": true
+                  },
+                  "source": {
+                    "repo": "SuhailAhmedAamro/BOOK-SKP-Claude-",
+                    "image": null
+                  },
+                  "domains": {
+                    "serviceDomains": [
+                      {
+                        "id": "120551e1-bb6a-4cbe-bc04-15713e7232a0",
+                        "domain": "book-skp-claude-production-16ea.up.railway.app",
+                        "targetPort": null
+                      }
+                    ],
+                    "customDomains": []
+                  },
+                  "cronSchedule": null,
+                  "nextCronRunAt": null,
+                  "startCommand": null
+                }
+              },
+              {
+                "node": {
+                  "id": "e3a385b7-651e-428c-ba50-00d00430d0c5",
+                  "serviceId": "d3cf2574-536c-47ba-9748-bc261c708644",
+                  "serviceName": "diplomatic-flexibility",
+                  "environmentId": "41abce21-933e-4b62-88a0-d216aa31e8ec",
+                  "latestDeployment": {
+                    "canRedeploy": true,
+                    "id": "3e8f189a-d8a0-443e-98c9-bf8218b8da61",
+                    "meta": {
+                      "branch": "main",
+                      "buildOnly": false,
+                      "commitAuthor": "SuhailAhmedAamro",
+                      "commitHash": "66d1c46a1cc229bbf640518dd55c167a7be3566b",
+                      "commitMessage": "Remove conflicting Railway configuration files\n\n- Remove backend/railway.toml (using root railway.json instead)\n- Remove backend/Procfile (config in railway.json)\n- Remove backend/runtime.txt (Nixpacks auto-detects Python version)\n- Root railway.json has correct cd backend && commands\n\n🤖 Generated with Claude Code\nhttps://claude.com/claude-code\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+                      "configFile": "railway.json",
+                      "fileServiceManifest": {
+                        "build": {
+                          "buildCommand": "cd backend && pip install -r requirements.txt",
+                          "builder": "NIXPACKS"
+                        },
+                        "deploy": {
+                          "healthcheckPath": "/api/health",
+                          "healthcheckTimeout": 100,
+                          "restartPolicyMaxRetries": 10,
+                          "restartPolicyType": "ON_FAILURE",
+                          "startCommand": "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+                        }
+                      },
+                      "logsV2": true,
+                      "nixpacksProviders": [],
+                      "propertyFileMapping": {
+                        "build.buildCommand": "$.build.buildCommand",
+                        "build.builder": "$.build.builder",
+                        "deploy.healthcheckPath": "$.deploy.healthcheckPath",
+                        "deploy.healthcheckTimeout": "$.deploy.healthcheckTimeout",
+                        "deploy.restartPolicyMaxRetries": "$.deploy.restartPolicyMaxRetries",
+                        "deploy.restartPolicyType": "$.deploy.restartPolicyType",
+                        "deploy.startCommand": "$.deploy.startCommand"
+                      },
+                      "reason": "deploy",
+                      "repo": "SuhailAhmedAamro/BOOK-SKP-Claude-",
+                      "rootDirectory": null,
+                      "runtime": "V2",
+                      "serviceManifest": {
+                        "build": {
+                          "buildCommand": "cd backend && pip install -r requirements.txt",
+                          "buildEnvironment": null,
+                          "builder": "NIXPACKS",
+                          "dockerfilePath": null,
+                          "nixpacksConfigPath": null,
+                          "nixpacksPlan": null,
+                          "watchPatterns": [
+                            "/backend/**"
+                          ]
+                        },
+                        "deploy": {
+                          "cronSchedule": null,
+                          "drainingSeconds": null,
+                          "healthcheckPath": "/api/health",
+                          "healthcheckTimeout": 100,
+                          "limitOverride": null,
+                          "multiRegionConfig": {
+                            "us-west2": {
+                              "numReplicas": 1
+                            }
+                          },
+                          "numReplicas": 1,
+                          "overlapSeconds": null,
+                          "preDeployCommand": null,
+                          "region": null,
+                          "registryCredentials": null,
+                          "requiredMountPath": null,
+                          "restartPolicyMaxRetries": 10,
+                          "restartPolicyType": "ON_FAILURE",
+                          "runtime": "V2",
+                          "sleepApplication": false,
+                          "startCommand": "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT",
+                          "useLegacyStacker": false
+                        }
+                      },
+                      "volumeMounts": []
+                    },
+                    "status": "FAILED",
+                    "createdAt": "2025-12-22T04:04:24.628Z",
+                    "deploymentStopped": true
+                  },
+                  "source": {
+                    "repo": "SuhailAhmedAamro/BOOK-SKP-Claude-",
+                    "image": null
+                  },
+                  "domains": {
+                    "serviceDomains": [],
+                    "customDomains": []
+                  },
+                  "cronSchedule": null,
+                  "nextCronRunAt": null,
+                  "startCommand": "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+                }
+              }
+            ]
+          },
+          "volumeInstances": {
+            "edges": []
+          }
+        }
+      }
+    ]
+  },
+  "services": {
+    "edges": [
+      {
+        "node": {
+          "id": "1cf5f190-28e0-454c-b6da-4fd095204674",
+          "name": "BOOK-SKP-Claude-"
+        }
+      },
+      {
+        "node": {
+          "id": "75a42cab-22e6-41b8-a768-81fc057c6165",
+          "name": "renewed-victory"
+        }
+      },
+      {
+        "node": {
+          "id": "d3cf2574-536c-47ba-9748-bc261c708644",
+          "name": "diplomatic-flexibility"
+        }
+      }
+    ]
+  }
+}

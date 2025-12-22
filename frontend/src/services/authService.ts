@@ -45,16 +45,23 @@ export const authService = {
   },
 
   saveToken(token: string, user: User): void {
-    localStorage.setItem('auth_token', token);
-    localStorage.setItem('user', JSON.stringify(user));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('auth_token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+    }
   },
 
   clearAuth(): void {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('user');
+    }
   },
 
   getStoredUser(): User | null {
+    if (typeof window === 'undefined') {
+      return null; // SSR: no localStorage available
+    }
     const userStr = localStorage.getItem('user');
     if (userStr) {
       try {
@@ -67,6 +74,9 @@ export const authService = {
   },
 
   isAuthenticated(): boolean {
+    if (typeof window === 'undefined') {
+      return false; // SSR: treat as not authenticated
+    }
     return !!localStorage.getItem('auth_token');
   },
 };

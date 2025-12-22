@@ -44,13 +44,18 @@ app = FastAPI(
 # --- MIDDLEWARE ORDER (IMPORTANT) ---
 
 # 1. CORS Middleware (Sabse pehle rakhein taaki errors par bhi headers milein)
+# Build CORS origins list from environment
+cors_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+# Add production frontend URL if set
+if settings.frontend_url and settings.frontend_url not in cors_origins:
+    cors_origins.append(settings.frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://book-skp-claude.vercel.app",
-    ],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
