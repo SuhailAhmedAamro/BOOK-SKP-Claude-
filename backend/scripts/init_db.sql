@@ -64,6 +64,18 @@ CREATE INDEX IF NOT EXISTS idx_chat_history_user_session ON chat_history(user_id
 CREATE INDEX IF NOT EXISTS idx_chat_history_created ON chat_history(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_chat_history_chapter ON chat_history(chapter_number);
 
+-- Assessments Table (Final Self-Assessment)
+CREATE TABLE IF NOT EXISTS assessments (
+    id SERIAL PRIMARY KEY,
+    user_id TEXT UNIQUE NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    score DECIMAL(5,2) CHECK (score BETWEEN 0 AND 100) NOT NULL,
+    answers JSONB NOT NULL,
+    completed_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_assessments_user_id ON assessments(user_id);
+CREATE INDEX IF NOT EXISTS idx_assessments_score ON assessments(score);
+
 -- Function to update updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$

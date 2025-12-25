@@ -1,13 +1,13 @@
 import os
-import google.generativeai as genai
+import cohere
 from typing import List, Dict, Optional
 from app.config import get_settings
 from app.db.qdrant import search_vectors
 
 settings = get_settings()
 
-# Gemini setup using the key from .env
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+# Cohere setup using the key from .env
+co = cohere.Client(api_key=settings.cohere_api_key)
 
 def get_personalization_context(background: str) -> str:
     """Get personalized context based on user's background"""
@@ -24,13 +24,13 @@ def get_personalization_context(background: str) -> str:
     return "Provide balanced coverage of both hardware and software aspects."
 
 async def generate_embedding(text: str) -> List[float]:
-    """Generate embedding for text using Google Gemini"""
-    result = genai.embed_content(
-        model="models/text-embedding-004",
-        content=text,
-        task_type="retrieval_query"
+    """Generate embedding for text using Cohere"""
+    response = co.embed(
+        texts=[text],
+        model="embed-english-v3.0",
+        input_type="search_query"
     )
-    return result['embedding']
+    return response.embeddings[0]
 
 async def search_similar_content(
     query: str,
@@ -59,10 +59,10 @@ async def generate_rag_response(
     selected_text: Optional[str] = None,
     chapter_number: Optional[int] = None
 ) -> tuple[str, List[Dict]]:
-    """Generate RAG response using Gemini 1.5 Flash"""
+    """Generate RAG response using Cohere Command R+"""
 
     query = f"{selected_text}\n\nQuestion: {message}" if selected_text else message
-    
+
     # Search relevant context from Qdrant Cloud
     search_results = await search_similar_content(
         query=query,
@@ -73,26 +73,30 @@ async def generate_rag_response(
     context_text = "\n".join([res['payload']['content'] for res in search_results])
     personalization = get_personalization_context(background)
 
-    # Prompt for Gemini
+    # Prompt for Cohere
     prompt = f"""You are an expert AI assistant for the "Physical AI & Humanoid Robotics" textbook.
-    
+
     {personalization}
-    
+
     Context: {context_text}
-    
+
     Guidelines:
     - Answer ONLY based on the context.
     - Cite chapter numbers if available.
     - Keep it concise.
-    
+
     User Question: {message}"""
 
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    response = model.generate_content(prompt)
+    response = co.chat(
+        message=prompt,
+        model='command-r-plus',
+        temperature=0.3
+    )
 
     sources = [
         {
             "chapter": res['payload'].get('chapter', 'N/A'),
+            "section": f"Chapter {res['payload'].get('chapter', 'N/A')}",
             "excerpt": res['payload']['content'][:200] + "...",
             "score": res['score']
         }
@@ -102,14 +106,17 @@ async def generate_rag_response(
     return response.text, sources
 
 async def translate_to_urdu(text: str) -> str:
-    """Translate text to Urdu using Gemini"""
-    prompt = f"""Translate the following text to Urdu (اردو) but keep technical terms like 
+    """Translate text to Urdu using Cohere"""
+    prompt = f"""Translate the following text to Urdu (اردو) but keep technical terms like
     ROS 2, NVIDIA, Jetson Orin, Python, and Linux in English.
-    
+
     Text: {text}
-    
+
     Urdu Translation:"""
-    
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    response = model.generate_content(prompt)
+
+    response = co.chat(
+        message=prompt,
+        model='command-r-plus',
+        temperature=0.3
+    )
     return response.text

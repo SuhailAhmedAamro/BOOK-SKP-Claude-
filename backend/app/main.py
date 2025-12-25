@@ -10,6 +10,7 @@ from app.db.qdrant import ensure_collection_exists
 from app.auth.routes import router as auth_router
 from app.user.routes import router as user_router
 from app.chat.routes import router as chat_router
+from app.certificate.routes import router as certificate_router
 from app.middleware.rate_limit import rate_limit_middleware, rate_limiter
 
 settings = get_settings()
@@ -75,6 +76,7 @@ if settings.frontend_url != "http://localhost:3000":
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(chat_router)
+app.include_router(certificate_router)
 
 @app.get("/")
 async def root():
