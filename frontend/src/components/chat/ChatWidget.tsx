@@ -103,7 +103,7 @@ export default function ChatWidget() {
               damping: 25,
               duration: 0.4
             }}
-            className="fixed bottom-6 right-6 w-[450px] h-[700px] bg-white dark:bg-gray-800 rounded-lg shadow-2xl flex flex-col z-50 border-2 border-blue-500/30 dark:border-blue-500/50"
+            className="fixed bottom-6 right-6 w-[350px] h-[550px] bg-white dark:bg-gray-800 rounded-lg shadow-2xl flex flex-col z-50 border-2 border-blue-500/30 dark:border-blue-500/50"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 glass-card">
