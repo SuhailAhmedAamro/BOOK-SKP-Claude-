@@ -453,6 +453,8 @@ Copyright © 2025 Panaversity. All rights reserved.
 
 **Built with ❤️ for Robotics Learners**
 
+**by SUHAIL AHMED**
+
 [⬆ Back to Top](#-physical-ai--humanoid-robotics-portal)
 
 </div>

@@ -499,3 +499,5 @@ Q-4-01/
 ---
 
 **Built with ❤️ using FastAPI, Docusaurus, Cohere, and PostgreSQL**
+
+**by SUHAIL AHMED**
