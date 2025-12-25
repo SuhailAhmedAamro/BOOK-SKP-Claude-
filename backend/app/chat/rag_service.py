@@ -89,7 +89,7 @@ async def generate_rag_response(
 
     response = co.chat(
         message=prompt,
-        model='command-r-plus',
+        model='command-r',
         temperature=0.3
     )
 
@@ -116,7 +116,7 @@ async def translate_to_urdu(text: str) -> str:
 
     response = co.chat(
         message=prompt,
-        model='command-r-plus',
+        model='command-r',
         temperature=0.3
     )
     return response.text

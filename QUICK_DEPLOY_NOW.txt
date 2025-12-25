@@ -1,0 +1,80 @@
+==========================================
+🚀 QUICK DEPLOYMENT GUIDE - DO THIS NOW!
+==========================================
+
+📍 STEP 1: RAILWAY BACKEND (5 minutes)
+==========================================
+
+1. Open: https://railway.app
+2. Click "New Project" → "Deploy from GitHub repo"
+3. Select: SuhailAhmedAamro/BOOK-SKP-Claude-
+4. Railway will auto-detect Dockerfile ✓
+
+5. ADD ENVIRONMENT VARIABLES (Copy-paste these):
+
+GEMINI_API_KEY=AIzaSyBUnhJlJ4rCbfJ61Xw7DIDSnpUMXIwCWtk
+DATABASE_URL=postgresql://neondb_owner:npg_H6o5LOFBYzSf@ep-purple-recipe-a8de5pnj-pooler.eastus2.azure.neon.tech/neondb?sslmode=require
+QDRANT_URL=https://d9591c7e-519d-4674-b8ed-d57bf9fdd2d1.europe-west3-0.gcp.cloud.qdrant.io
+QDRANT_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.va4QEe4M-ypgWcLQlD0IhNEyV4LOFqzpDin1JcQBtdE
+SECRET_KEY=628628925d7f3b7070d03b322f99c27810b1e91ac6edce7d4da18bb73416ff8e
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=10080
+FRONTEND_URL=http://localhost:3000
+
+6. Click "Deploy"
+7. Wait 3-5 minutes for build
+8. COPY YOUR RAILWAY URL (e.g., https://xyz.up.railway.app)
+
+==========================================
+📍 STEP 2: VERCEL FRONTEND (3 minutes)
+==========================================
+
+1. Open: https://vercel.com
+2. Click "Add New" → "Project"
+3. Import: SuhailAhmedAamro/BOOK-SKP-Claude-
+
+4. CONFIGURE:
+   - Framework Preset: Docusaurus
+   - Root Directory: frontend
+   - Build Command: npm run build
+   - Output Directory: build
+   - Install Command: npm install
+
+5. ADD ENVIRONMENT VARIABLE:
+   Name: VITE_API_URL
+   Value: <YOUR-RAILWAY-URL-FROM-STEP-1>
+   
+   Example: https://your-app-abc123.up.railway.app
+
+6. Click "Deploy"
+7. Wait 2-3 minutes
+8. COPY YOUR VERCEL URL (e.g., https://book-skp-claude.vercel.app)
+
+==========================================
+📍 STEP 3: UPDATE RAILWAY (1 minute)
+==========================================
+
+1. Go back to Railway dashboard
+2. Find FRONTEND_URL variable
+3. Update to your Vercel URL:
+   FRONTEND_URL=https://your-app.vercel.app
+4. Railway will auto-redeploy (30 seconds)
+
+==========================================
+✅ VERIFICATION
+==========================================
+
+Test these URLs:
+
+1. Backend: https://your-railway-app.up.railway.app/api/health
+   Expected: {"status":"healthy","database":"connected"}
+
+2. Frontend: https://your-vercel-app.vercel.app
+   Expected: Your homepage loads
+
+==========================================
+🎉 DONE! PROJECT DEPLOYED!
+==========================================
+
+Both URLs will be your submission links!
+

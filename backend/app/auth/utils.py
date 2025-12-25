@@ -62,7 +62,24 @@ def decode_access_token(token: str) -> TokenData:
 
 
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> str:
-    """Get the current authenticated user ID from the token"""
+    """Get the current authenticated user ID from the token and validate session"""
+    from app.db.neon import get_pool
+
     token = credentials.credentials
     token_data = decode_access_token(token)
+
+    # Validate that session exists in database (enables token revocation)
+    pool = await get_pool()
+    session = await pool.fetchrow(
+        "SELECT id FROM sessions WHERE user_id = $1 AND token = $2 AND expires_at > NOW()",
+        token_data.user_id,
+        token
+    )
+
+    if not session:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Session expired or invalid. Please sign in again."
+        )
+
     return token_data.user_id
